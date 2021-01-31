@@ -1,0 +1,15 @@
+.labelWrapper {
+  margin: 10px 0;
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+/* .labelWrapper > label {
+  /* width: 100%;
+  display: flex;
+  flex-direction: column; */
+.sliderValDiv {
+  display: flex;
+  justify-content: center;
+}
