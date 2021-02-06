@@ -7,25 +7,26 @@ const InputForm = props => {
   const [expense, setExpense] = useState(0)
   const [tipPercentage, setTipPercentage] = useState(0)
   const [splitBy, setSplitBy] = useState(0)
-  const [reminderFreq, setReminderFreq] = useState(0)
+  const [reminderFreq, setReminderFreq] = useState(1)
+  const [splitWith, setSplitWith] = useState('');
 
   const handleFormSubmit = e => {
     e.preventDefault();
     let dataBody 
     let calcExp
     let calcSplit
-    if(tipPercentage === 0 && splitBy > 0) {
-      // let calcTip = tipPercentage / 100
-      // let totalTip = calcTip * expense
-      // calcExp = +totalTip + +expense
+    if((tipPercentage === '' || tipPercentage === '0') && (splitBy > 0)) {
       calcSplit = +expense * +splitBy / 100 
+      console.log('test')
       dataBody = {
         itemName,
         expense: expense ,
         reminderFreq,
+        splitWith,
         payMe: calcSplit
       }
     }
+    
     if(tipPercentage > 0 && splitBy > 0) {
       let calcTip = tipPercentage / 100
       let totalTip = calcTip * expense
@@ -36,18 +37,18 @@ const InputForm = props => {
         itemName,
         expense: calcExp ,
         reminderFreq,
+        splitWith,
         payMe: calcExp - (+calcExp - +calcSplit)
       }
-      
     }
     
-    // fetch('api/add-expense', {
-    //   method: 'POST',
-    //   body: JSON.stringify(dataBody),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    // })
+    fetch('api/add-expense', {
+      method: 'POST',
+      body: JSON.stringify(dataBody),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
     console.log(dataBody)
   }
   return(
@@ -72,7 +73,7 @@ const InputForm = props => {
       value={tipPercentage}
       changed={e => setTipPercentage(e.target.value)}/>
       <Input
-      labelName="Percent split"
+      labelName="My percent split"
       inputType='number'
       inputName='Split-by'
       value={splitBy}
@@ -86,9 +87,16 @@ const InputForm = props => {
       value={reminderFreq}
       changed={e => setReminderFreq(e.target.value)}
       sliderVal={reminderFreq}/>
+      <Input
+      labelName="Optional - Split with"
+      inputType="text"
+      value={splitWith}
+      changed={e => setSplitWith(e.target.value)}
+      inputName="split-with" />
       <Input 
       inputType='submit'
       value='Submit'/>
+      
       </form>
     </React.Fragment>
   )

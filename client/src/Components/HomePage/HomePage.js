@@ -1,17 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import RegisterLogin from '../Forms/RegisterLogin/RegisterLogin';
 import InputForm from '../Forms/InputForm/InputForm';
+import SignOutBtn from '../Forms/SignOutBtn/SignOutBtn';
 import styles from './HomePage.module.css';
 
 const HomePage = props => {
-  return(
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState('')
+  const [currentUserID, setCurrentUserID] = useState('')
+  useEffect(()=> {
+    loggedInChecker()
+    //THE EMPTY BRACKET SIMULATES COMPONENT DID MOUNT
+    //CHECK TO SEE IF YOU NEED TO MODIFY OR REMOVE IT LATER
+  }, [])
+
+    let rendered = null
+
+
+  const loggedInChecker = () => {
+      const loggedInUser = localStorage.getItem('user');
+      const loggedInUserID = localStorage.getItem('userID');
+      if (loggedInUser && loggedIn === false) {
+        setLoggedIn(true);
+        setCurrentUser(loggedInUser);
+        setCurrentUserID(loggedInUserID);
+      } 
+    }
+   const handleLogout = () => {
+      setCurrentUser("");
+      setCurrentUserID("");
+      localStorage.clear()
+      window.location.reload();
+    }
+
+  if(loggedIn === false) {
+    rendered = 
     <div className={styles.hpWrapper}>
-      <div className={styles.header}>
-        <h1>Pay.Me</h1>
-      </div>
-      <div className={styles.hpInputWrapper}>
-        <InputForm />
-      </div>
+    <div className={styles.header}>
+      <h1>Pay.Me</h1>
+      <SignOutBtn />
     </div>
+    <div className={styles.hpInputWrapper}>
+      <RegisterLogin
+      loginHandler = {setLoggedIn} />
+    </div>
+  </div>
+    
+  } else {
+    rendered = 
+    <div className={styles.hpWrapper}>
+    <div className={styles.header}>
+      <h1>Pay.Me</h1>
+      <SignOutBtn
+      logoutHandler = {handleLogout} />
+    </div>
+    <div className={styles.hpInputWrapper}>
+      <InputForm />
+    </div>
+  </div>
+  }
+  
+  return(
+    rendered
   )
 }
 
