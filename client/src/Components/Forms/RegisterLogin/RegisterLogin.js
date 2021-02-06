@@ -9,6 +9,7 @@ const RegisterLogin = (props) => {
   const [registerUserName, setRegisterUserName] = useState("");
   const [registerPassWord1, setRegisterPassWord1] = useState("");
   const [registerPassWord2, setRegisterPassWord2] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   let rendered = null
 
   const handleLogin = async e => {
@@ -29,6 +30,7 @@ const RegisterLogin = (props) => {
         if(response.status === 200) {
           localStorage.setItem('user', data.user.userName)
           localStorage.setItem('userID', data.user._id)
+          localStorage.setItem('userEmail', data.user.email)
           props.loginHandler()
         } else {
           console.log('error in login field(s)')
@@ -42,7 +44,8 @@ const RegisterLogin = (props) => {
     let dataBody = {
       userName: registerUserName,
       passWord: registerPassWord1,
-      passWordCheck: registerPassWord2
+      passWordCheck: registerPassWord2,
+      email: userEmail
     }
     fetch('api/create-user', {
       method: 'POST',
@@ -76,6 +79,7 @@ const RegisterLogin = (props) => {
             <label>
               <div>PassWord</div>
               <Input
+                inputType="password"
                 className={styles.input}
                 value={passWord}
                 changed={(e) => setPassWord(e.target.value)}
@@ -120,7 +124,7 @@ const RegisterLogin = (props) => {
                   PassWord
                 </div>
   
-                <Input type="password" name="passWord"
+                <Input inputType="password" name="passWord"
                 className={styles.input} 
                 value={registerPassWord1}
                 changed={e => setRegisterPassWord1(e.target.value)} 
@@ -133,10 +137,23 @@ const RegisterLogin = (props) => {
                   re-enter password
                 </div>
   
-                <Input type="password" name="passWord"
+                <Input inputType="password" name="passWord"
                 className={styles.input} 
                 value={registerPassWord2}
                 changed={e => setRegisterPassWord2(e.target.value)} 
+                />
+              </label>
+            </div>
+            <div className={styles.labelWrapper}>
+              <label>
+                <div> 
+                  Email
+                </div>
+  
+                <Input inputType="text" name="email"
+                className={styles.input} 
+                value={userEmail}
+                changed={e => setUserEmail(e.target.value)} 
                 />
               </label>
             </div>

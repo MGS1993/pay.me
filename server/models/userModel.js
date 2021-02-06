@@ -5,7 +5,7 @@ const UserSchema = new Schema(
   {
     userName: {type:String, required: true},
     passWord: {type: String, required: true},
-    expenses: [{type: Schema.Types.ObjectId, required: true, ref: 'Expenses'}]
+    email: {type: String, required: true}
   }
 );
 

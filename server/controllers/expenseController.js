@@ -1,5 +1,6 @@
 const expenses = require('../models/expensesModel');
-const nodeMail = require('../nodeMailer/nodeMailer');
+const nodemailer = require('nodemailer')
+const schedule = require('node-schedule');
 //POST new expense
 exports.add_expense = function(req, res, next) {
   let expense = new expenses(
@@ -9,21 +10,46 @@ exports.add_expense = function(req, res, next) {
       tip: req.body.tipPercentage,
       shareOfExpense: req.body.splitBy,
       reminderFrequency: req.body.reminderFreq,
-      payMe: req.body.payMe
+      payMe: req.body.payMe,
+      email: req.body.email
     }
   );
-
-  expense.save(function(err) {
+  expense
+  .save(function(err) {
     if(err) {return next(err)}
   }) 
-
-  // transporter.sendMail(mailOptions, function(error, info) {
-  
-  //   if(error) {
-  //     console.log(error);
-  //   } else {
-  //     console.log('Email sent ' + info.response)
-  //   }
-  // })
+  res.status(250)
 }
 
+exports.send_reminder = function(req, res, next) {
+  let serviceID = Math.floor(Math.random() * 100).toString()
+  let transporter = nodemailer.createTransport({
+    service: 'yahoo',
+    auth: {
+      user: 'mannyg1218@yahoo.com',
+      pass: process.env.EMAIL_TEMP_PW
+    }
+  });
+    schedule.scheduleJob(serviceID, '* * * * *', () => {
+    transporter.sendMail({
+      from: 'mannyg1218@yahoo.com',
+      to: `${req.body.email}`,
+      subject: 'pay.me reminder',
+      text: 
+      `Remember that you are owed ${req.body.payMe} for ${req.body.itemName}.`,
+      html: `<p> If you have already been paid click <a href='http://localhost:8000/api/add-expense/cancel-reminder/${serviceID}'>here</a> </p>`
+    }, console.log('email sent'))
+    
+    console.log(schedule.scheduledJobs)
+    console.log(serviceID)
+  })
+  
+}
+// '0 15 * * */1'
+exports.cancel_reminder = function(req, res, next) {
+  const serviceID = req.params.serviceID
+  console.log(req.params)
+  let current_job = schedule.scheduledJobs[serviceID]
+  current_job.cancel()
+  console.log('request cancelled')
+}

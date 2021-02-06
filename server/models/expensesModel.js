@@ -9,7 +9,9 @@ const ExpensesSchema = new Schema (
     shareOfExpense: {type: Number, required: false},
     reminderFrequency: {type: Number, required: true},
     splitWith: {type: String, require: false},
-    payMe: {type: Number, required: true}
+    payMe: {type: Number, required: true},
+    email: {type:String, required: true},
+
   }
 )
 

@@ -7,8 +7,10 @@ const userController = require('../controllers/userController');
 //EXPENSES ROUTES
 //POST expense 
 router.post('/add-expense', expenseController.add_expense)
-
-
+//POST reminder schedule
+router.post('/add-expense/send-reminder', expenseController.send_reminder)
+//POST reminder cancel
+router.get('/add-expense/cancel-reminder/:serviceID', expenseController.cancel_reminder)
 
 //USER ROUTES
 //POST Create new user

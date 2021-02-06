@@ -4,8 +4,8 @@ const bcrypt = require("bcrypt");
 
 exports.add_user = async (req, res, next) => {
     try{
-        const { userName, passWord, passWordCheck } = req.body
-        if(!userName || !passWord || !passWordCheck) {
+        const { userName, passWord, passWordCheck, email } = req.body
+        if(!userName || !passWord || !passWordCheck || !email) {
           return res
           .status(400)
           .json({msg: "Not all field have been entered."})
@@ -26,12 +26,19 @@ exports.add_user = async (req, res, next) => {
           .status(400)
           .json({msg: "UserName already taken"})
         }
+        const existingEmail = await userModel.findOneAndDelete({email: email})
+        if(existingEmail) {
+          return res
+          .status(400)
+          .json({msg: "email already taken"})
+        }
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(passWord, salt);
         let user = new userModel(
           {
             userName: userName,
             passWord: passwordHash,
+            email: email
           }
         )
         user.save( await function(err) {

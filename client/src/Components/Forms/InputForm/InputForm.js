@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import styles from './InputForm.module.css';
 import Input from '../../Input/Input';
-
 const InputForm = props => {
   const [itemName, setItemName] = useState('')
   const [expense, setExpense] = useState(0)
@@ -20,14 +19,15 @@ const InputForm = props => {
       console.log('test')
       dataBody = {
         itemName,
-        expense: expense ,
+        expense: expense,
         reminderFreq,
         splitWith,
-        payMe: calcSplit
+        payMe: calcSplit,
       }
     }
     
     if(tipPercentage > 0 && splitBy > 0) {
+      const userEmail = localStorage.getItem('userEmail');
       let calcTip = tipPercentage / 100
       let totalTip = calcTip * expense
       
@@ -38,7 +38,9 @@ const InputForm = props => {
         expense: calcExp ,
         reminderFreq,
         splitWith,
-        payMe: calcExp - (+calcExp - +calcSplit)
+        payMe: calcExp - (+calcExp - +calcSplit),
+        email: userEmail,
+        
       }
     }
     
@@ -49,7 +51,17 @@ const InputForm = props => {
         'Content-Type': 'application/json'
       },
     })
+
+    fetch('api/add-expense/send-reminder', {
+      method: 'POST',
+      body: JSON.stringify(dataBody),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
     console.log(dataBody)
+
   }
   return(
     <React.Fragment>                      
