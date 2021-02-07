@@ -30,7 +30,7 @@ exports.send_reminder = function(req, res, next) {
       pass: process.env.EMAIL_TEMP_PW
     }
   });
-    schedule.scheduleJob(serviceID, '* * * * *', () => {
+    schedule.scheduleJob(serviceID, '15 12 * * 5,6,0,1,2', () => {
     transporter.sendMail({
       from: 'mannyg1218@yahoo.com',
       to: `${req.body.email}`,
@@ -45,7 +45,7 @@ exports.send_reminder = function(req, res, next) {
   })
   
 }
-// '0 15 * * */1'
+
 exports.cancel_reminder = function(req, res, next) {
   const serviceID = req.params.serviceID
   console.log(req.params)
