@@ -8,7 +8,7 @@ exports.add_user = async (req, res, next) => {
         if(!userName || !passWord || !passWordCheck || !email) {
           return res
           .status(400)
-          .json({msg: "Not all field have been entered."})
+          .json({msg: "Not all fields have been entered."})
         }
         if(passWord.length < 5) {
           return res

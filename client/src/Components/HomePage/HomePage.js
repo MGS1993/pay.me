@@ -38,7 +38,6 @@ const HomePage = props => {
     <div className={styles.hpWrapper}>
     <div className={styles.header}>
       <h1>Pay.Me</h1>
-      <SignOutBtn />
     </div>
     <div className={styles.hpInputWrapper}>
       <RegisterLogin
@@ -51,10 +50,11 @@ const HomePage = props => {
     <div className={styles.hpWrapper}>
     <div className={styles.header}>
       <h1>Pay.Me</h1>
-      <SignOutBtn
-      logoutHandler = {handleLogout} />
+      
     </div>
     <div className={styles.hpInputWrapper}>
+    <SignOutBtn
+      logoutHandler = {handleLogout} />
       <InputForm />
     </div>
   </div>

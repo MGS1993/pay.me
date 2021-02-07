@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
 .hpWrapper {
   display: flex;
   justify-content: center;
@@ -5,7 +7,7 @@
 }
 .header {
   display: flex;
-  background-color: lightblue;
+  background-color: #1bc2f9;
   height: 100%;
   width: 100%;
   justify-content: center;
@@ -13,10 +15,12 @@
 h1 {
   color: white;
   font-weight: bold;
+  font-family: 'Sriracha', cursive;
 }
 .hpInputWrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: rgb(243, 212, 212);
+  background-color: white;
+  align-items: center;
 }
