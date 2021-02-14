@@ -32,9 +32,8 @@ const RegisterLogin = (props) => {
           localStorage.setItem('userID', data.user._id)
           localStorage.setItem('userEmail', data.user.email)
           props.loginHandler()
-        } else {
-          console.log('error in login field(s)')
-        }
+        } 
+        
       }catch(err) {
         console.log(err)
       }
@@ -55,6 +54,10 @@ const RegisterLogin = (props) => {
       }
     })
     setApplyRegister(false)
+    setRegisterUserName('');
+    setRegisterPassWord1('');
+    setRegisterPassWord2('');
+    setUserEmail('');
   }
 
   if(applyRegister === false) {

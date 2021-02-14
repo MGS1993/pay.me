@@ -11,9 +11,13 @@ exports.add_expense = function(req, res, next) {
       shareOfExpense: req.body.splitBy,
       reminderFrequency: req.body.reminderFreq,
       payMe: req.body.payMe,
-      email: req.body.email
+      email: req.body.email,
+      splitWith: req.body.splitWith
     }
   );
+  for (const property in expense) {
+    property.trim()
+  }
   expense
   .save(function(err) {
     if(err) {return next(err)}

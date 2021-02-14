@@ -14,7 +14,8 @@ const InputForm = props => {
     let dataBody 
     let calcExp
     let calcSplit
-    if((tipPercentage === '' || tipPercentage === '0') && (splitBy > 0)) {
+    if((tipPercentage === '' || tipPercentage === 0 ) && (splitBy > 0)) {
+      const userEmail = localStorage.getItem('userEmail');
       calcSplit = +expense * +splitBy / 100 
       console.log('test')
       dataBody = {
@@ -23,6 +24,7 @@ const InputForm = props => {
         reminderFreq,
         splitWith,
         payMe: calcSplit,
+        email: userEmail
       }
     }
     
@@ -61,7 +63,12 @@ const InputForm = props => {
     })
 
     console.log(dataBody)
-
+    setItemName('');
+    setExpense('');
+    setTipPercentage('');
+    setSplitBy('');
+    setReminderFreq(1);
+    setSplitWith('');
   }
   return(
     <React.Fragment>                      

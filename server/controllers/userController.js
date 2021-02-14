@@ -26,7 +26,7 @@ exports.add_user = async (req, res, next) => {
           .status(400)
           .json({msg: "UserName already taken"})
         }
-        const existingEmail = await userModel.findOneAndDelete({email: email})
+        const existingEmail = await userModel.findOne({email: email})
         if(existingEmail) {
           return res
           .status(400)
@@ -41,6 +41,7 @@ exports.add_user = async (req, res, next) => {
             email: email
           }
         )
+        
         user.save( await function(err) {
           if(err) {return next(err)}
         })
@@ -52,11 +53,11 @@ exports.add_user = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try{
-      const user = await userModel.findOne({userName: req.body.userName})
+      const user = await userModel.findOne({userName: req.body.userName.trim()})
       if(user === null) {
       return res.status(400).send('Cannot find user').end()
     }
-       if( await bcrypt.compare(req.body.passWord, user.passWord)) {
+       if( await bcrypt.compare(req.body.passWord, user.passWord.trim())) {
          return res
         .send({user})
         .status(200)
