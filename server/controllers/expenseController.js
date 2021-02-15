@@ -9,7 +9,6 @@ exports.add_expense = function(req, res, next) {
       expense: req.body.expense,
       tip: req.body.tipPercentage,
       shareOfExpense: req.body.splitBy,
-      reminderFrequency: req.body.reminderFreq,
       payMe: req.body.payMe,
       email: req.body.email,
       splitWith: req.body.splitWith
