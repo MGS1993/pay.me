@@ -69,7 +69,13 @@ const InputForm = props => {
     setSplitBy('');
     setReminderFreq(1);
     setSplitWith('');
+    
   }
+
+    
+  
+  
+
   return(
     <React.Fragment>                      
       <form className={styles.form} onSubmit={handleFormSubmit}>

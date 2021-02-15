@@ -23,4 +23,6 @@ h1 {
   width: 100%;
   background-color: white;
   align-items: center;
+  opacity: 100%;
+  transition: .5s;
 }

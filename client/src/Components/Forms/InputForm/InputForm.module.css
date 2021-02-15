@@ -4,4 +4,6 @@
   flex-direction: column;
   align-items: center;
   width: 80%;
+  /* opacity: 100%; */
+  transition: .3s;
 }

@@ -6,13 +6,13 @@ import styles from './HomePage.module.css';
 
 const HomePage = props => {
   const [loggedIn, setLoggedIn] = useState(false)
+  // eslint-disable-next-line
   const [currentUser, setCurrentUser] = useState('')
+  // eslint-disable-next-line
   const [currentUserID, setCurrentUserID] = useState('')
   useEffect(()=> {
     loggedInChecker()
-    //THE EMPTY BRACKET SIMULATES COMPONENT DID MOUNT
-    //CHECK TO SEE IF YOU NEED TO MODIFY OR REMOVE IT LATER
-  }, [])
+  })
 
     let rendered = null
 

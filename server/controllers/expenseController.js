@@ -34,7 +34,8 @@ exports.send_reminder = function(req, res, next) {
       pass: process.env.EMAIL_TEMP_PW
     }
   });
-    schedule.scheduleJob(serviceID, '15 12 * * 5,6,0,1,2', () => {
+  // '15 12 * * 5,6,0,1,2'
+    schedule.scheduleJob(serviceID, '* * * * *', () => {
     transporter.sendMail({
       from: 'mannyg1218@yahoo.com',
       to: `${req.body.email}`,
@@ -55,5 +56,6 @@ exports.cancel_reminder = function(req, res, next) {
   console.log(req.params)
   let current_job = schedule.scheduledJobs[serviceID]
   current_job.cancel()
+  res.send('You will now stop receiving email notifications for this expense')
   console.log('request cancelled')
 }
