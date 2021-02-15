@@ -6,7 +6,6 @@ const InputForm = props => {
   const [expense, setExpense] = useState(0)
   const [tipPercentage, setTipPercentage] = useState(0)
   const [splitBy, setSplitBy] = useState(0)
-  const [reminderFreq, setReminderFreq] = useState(1)
   const [splitWith, setSplitWith] = useState('');
 
   const handleFormSubmit = e => {
@@ -21,7 +20,6 @@ const InputForm = props => {
       dataBody = {
         itemName,
         expense: expense,
-        reminderFreq,
         splitWith,
         payMe: calcSplit,
         email: userEmail
@@ -38,7 +36,6 @@ const InputForm = props => {
       dataBody = {
         itemName,
         expense: calcExp ,
-        reminderFreq,
         splitWith,
         payMe: calcExp - (+calcExp - +calcSplit),
         email: userEmail,
@@ -67,7 +64,6 @@ const InputForm = props => {
     setExpense('');
     setTipPercentage('');
     setSplitBy('');
-    setReminderFreq(1);
     setSplitWith('');
     
   }
@@ -103,15 +99,6 @@ const InputForm = props => {
       inputName='Split-by'
       value={splitBy}
       changed={e => setSplitBy(e.target.value)}/>
-      <Input 
-      labelName="Weekly reminders"
-      inputType='range'
-      inputName='Reminder-range'
-      min='1'
-      max='7'
-      value={reminderFreq}
-      changed={e => setReminderFreq(e.target.value)}
-      sliderVal={reminderFreq}/>
       <Input
       labelName="Optional - Split with"
       inputType="text"
