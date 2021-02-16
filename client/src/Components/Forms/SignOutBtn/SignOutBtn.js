@@ -6,10 +6,11 @@ const SignOut = props => {
 
 
   return(
-    <div className={styles.signOutDivWrapper}>
+    <div className={styles.signOutDivWrapper}
+          onClick={props.logoutHandler}>
       <p 
       className={styles.signOutText}
-      onClick={props.logoutHandler}>
+      >
         Sign Out</p>
     </div>
   )
