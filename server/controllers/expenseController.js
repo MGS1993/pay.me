@@ -36,14 +36,12 @@ exports.send_reminder = function(req, res, next) {
       pass: process.env.EMAIL_TEMP_PW
     }
   });
-    schedule.scheduleJob(serviceID, '0 12 * * */1', () => {
+    schedule.scheduleJob(serviceID, '* * * * *', () => {
     transporter.sendMail({
       from: 'mannyg1218@yahoo.com',
       to: `${req.body.email}`,
       subject: 'pay.me reminder',
-      text: 
-      `Remember that you are owed ${req.body.payMe} for ${req.body.itemName}.`,
-      html: `<p> If you have already been paid click <a href='http://localhost:8000/api/add-expense/cancel-reminder/${serviceID}'>here</a> </p>`
+      html: `<p> Remember that you are owed ${req.body.payMe} for ${req.body.itemName}. If you have already been paid click <a href='http://localhost:8000/api/add-expense/cancel-reminder/${serviceID}'>here</a> </p>`
     }, console.log('email sent'))
     
     console.log(schedule.scheduledJobs)
