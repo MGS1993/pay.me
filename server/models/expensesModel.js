@@ -7,7 +7,6 @@ const ExpensesSchema = new Schema (
     expense: {type: Number, required: true},
     tip: {type: Number, required: false},
     shareOfExpense: {type: Number, required: false},
-    splitWith: {type: String, require: false},
     payMe: {type: Number, required: true},
     email: {type:String, required: true},
 

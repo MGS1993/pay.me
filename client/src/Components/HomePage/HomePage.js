@@ -14,9 +14,7 @@ const HomePage = props => {
     loggedInChecker()
   })
 
-    let rendered = null
-
-
+  let rendered = null
   const loggedInChecker = () => {
       const loggedInUser = localStorage.getItem('user');
       const loggedInUserID = localStorage.getItem('userID');
