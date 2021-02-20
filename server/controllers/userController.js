@@ -44,6 +44,7 @@ exports.add_user = async (req, res, next) => {
         
         user.save( await function(err) {
           if(err) {return next(err)}
+          console.log('user added to db')
         })
       } catch(err) {
         res.status(500);

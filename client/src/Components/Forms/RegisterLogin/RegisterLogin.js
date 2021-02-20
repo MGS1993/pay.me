@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../Input/Input";
 import styles from "./RegisterLogin.module.css";
 
@@ -11,7 +11,20 @@ const RegisterLogin = (props) => {
   const [registerPassWord2, setRegisterPassWord2] = useState("");
   const [userEmail, setUserEmail] = useState("");
   let rendered = null
-
+  let notMatchingStyle = null
+  useEffect(() => {
+    fetchData()
+    
+  }, [])
+  const fetchData = async() => {
+    try {
+      const response = await fetch('api/get-expenses')
+      const data = await response.json()
+      console.log(data)
+    }catch(error) {
+      console.log('error')
+    }
+  }
   const handleLogin = async e => {
     try {
         e.preventDefault();
@@ -27,6 +40,7 @@ const RegisterLogin = (props) => {
           }
         })
         const data = await response.json()
+        console.log(data)
         if(response.status === 200) {
           localStorage.setItem('user', data.user.userName)
           localStorage.setItem('userID', data.user._id)
@@ -59,7 +73,11 @@ const RegisterLogin = (props) => {
     setRegisterPassWord2('');
     setUserEmail('');
   }
-
+  if(registerPassWord2 !== registerPassWord1 ) {
+    notMatchingStyle = { 
+      border: '1px solid red',
+    }
+  }
   if(applyRegister === false) {
         rendered = (
         <React.Fragment>
@@ -128,6 +146,7 @@ const RegisterLogin = (props) => {
                 </div>
   
                 <Input inputType="password" name="passWord"
+                style={notMatchingStyle}
                 className={styles.input} 
                 value={registerPassWord1}
                 changed={e => setRegisterPassWord1(e.target.value)} 
@@ -141,6 +160,7 @@ const RegisterLogin = (props) => {
                 </div>
   
                 <Input inputType="password" name="passWord"
+                style={notMatchingStyle}
                 className={styles.input} 
                 value={registerPassWord2}
                 changed={e => setRegisterPassWord2(e.target.value)} 

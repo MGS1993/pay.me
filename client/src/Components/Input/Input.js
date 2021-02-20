@@ -13,6 +13,7 @@ const Input = props => {
       <input
       type={props.inputType}
       name={props.inputName}
+      style={props.style}
       value={props.value}
       onChange={props.changed}
       onClick={props.clicked}

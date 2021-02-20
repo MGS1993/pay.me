@@ -23,7 +23,11 @@ exports.add_expense = function(req, res, next) {
   }) 
   res.status(250)
 }
-
+exports.listExpenses = function(req, res, next) {
+  expenses.find({})
+  .then(expenseList => res.json(expenseList))
+  .catch(err => res.status(400).json('error' + err))
+}
 exports.send_reminder = function(req, res, next) {
   let serviceID = Math.floor(Math.random() * 100).toString()
   let transporter = nodemailer.createTransport({

@@ -7,6 +7,8 @@ const userController = require('../controllers/userController');
 //EXPENSES ROUTES
 //POST expense 
 router.post('/add-expense', expenseController.add_expense)
+//GET
+router.get('/get-expenses', expenseController.listExpenses)
 //POST reminder schedule
 router.post('/add-expense/send-reminder', expenseController.send_reminder)
 //POST reminder cancel
