@@ -11,7 +11,6 @@ exports.add_expense = function(req, res, next) {
       shareOfExpense: req.body.splitBy,
       payMe: req.body.payMe,
       email: req.body.email,
-      splitWith: req.body.splitWith
     }
   );
   for (const property in expense) {
@@ -37,8 +36,7 @@ exports.send_reminder = function(req, res, next) {
       pass: process.env.EMAIL_TEMP_PW
     }
   });
-  // '15 12 * * 5,6,0,1,2'
-    schedule.scheduleJob(serviceID, '* * * * *', () => {
+    schedule.scheduleJob(serviceID, '0 12 * * */1', () => {
     transporter.sendMail({
       from: 'mannyg1218@yahoo.com',
       to: `${req.body.email}`,

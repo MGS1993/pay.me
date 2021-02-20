@@ -6,8 +6,15 @@ const InputForm = props => {
   const [expense, setExpense] = useState(0)
   const [tipPercentage, setTipPercentage] = useState(0)
   const [splitBy, setSplitBy] = useState(0)
-  const [splitWith, setSplitWith] = useState('');
 
+  let submitBtnStyle = {
+    backgroundColor: '#1bc2f9',
+    border: '1px solid #1bc2f9',
+    color: 'white',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    height: '40px'
+  }
   const handleFormSubmit = e => {
     e.preventDefault();
     let dataBody 
@@ -20,7 +27,6 @@ const InputForm = props => {
       dataBody = {
         itemName,
         expense: expense,
-        splitWith,
         payMe: calcSplit,
         email: userEmail
       }
@@ -36,7 +42,6 @@ const InputForm = props => {
       dataBody = {
         itemName,
         expense: calcExp ,
-        splitWith,
         payMe: calcExp - (+calcExp - +calcSplit),
         email: userEmail,
         
@@ -64,14 +69,9 @@ const InputForm = props => {
     setExpense('');
     setTipPercentage('');
     setSplitBy('');
-    setSplitWith('');
+    
     
   }
-
-    
-  
-  
-
   return(
     <React.Fragment>                      
       <form className={styles.form} onSubmit={handleFormSubmit}>
@@ -99,13 +99,8 @@ const InputForm = props => {
       inputName='Split-by'
       value={splitBy}
       changed={e => setSplitBy(e.target.value)}/>
-      <Input
-      labelName="Optional - Split with"
-      inputType="text"
-      value={splitWith}
-      changed={e => setSplitWith(e.target.value)}
-      inputName="split-with" />
       <Input 
+      style={submitBtnStyle}
       inputType='submit'
       value='Submit'/>
       

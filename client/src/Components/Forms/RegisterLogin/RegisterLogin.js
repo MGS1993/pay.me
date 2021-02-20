@@ -10,8 +10,9 @@ const RegisterLogin = (props) => {
   const [registerPassWord1, setRegisterPassWord1] = useState("");
   const [registerPassWord2, setRegisterPassWord2] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  let rendered = null
-  let notMatchingStyle = null
+  let rendered = null;
+  let notMatchingStyle = null;
+  
   useEffect(() => {
     fetchData()
     
